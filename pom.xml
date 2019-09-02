@@ -256,5 +256,6 @@
 	<modules>
 		<module>crm-common</module>
 		<module>crm-framework</module>
+		<module>crm-generator</module>
 	</modules>
 </project>
