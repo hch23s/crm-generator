@@ -1,4 +1,4 @@
-package ${packageName}.service.impl;
+package ${basePackage}.service.impl;
 
 import java.util.List;
 #if($table.tree)
@@ -13,125 +13,125 @@ import com.ruoyi.common.utils.DateUtils;
 #end
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ${packageName}.mapper.${ClassName}Mapper;
-import ${packageName}.domain.${ClassName};
-import ${packageName}.service.I${ClassName}Service;
+import ${basePackage}.mapper.${className}Mapper;
+import ${basePackage}.domain.${className};
+import ${basePackage}.service.I${className}Service;
 import com.ruoyi.common.core.text.Convert;
 
 /**
- * ${functionName}Service业务层处理
+ * ${comments}Service业务层处理
  * 
  * @author ${author}
  * @date ${datetime}
  */
 @Service
-public class ${ClassName}ServiceImpl implements I${ClassName}Service 
+public class ${className}ServiceImpl implements I${className}Service 
 {
     @Autowired
-    private ${ClassName}Mapper ${className}Mapper;
+    private ${className}Mapper ${classname}Mapper;
 
     /**
-     * 查询${functionName}
+     * 查询${comments}
      * 
-     * @param ${pkColumn.javaField} ${functionName}ID
-     * @return ${functionName}
+     * @param ${pk.attrType} ${comments}ID
+     * @return ${comments}
      */
     @Override
-    public ${ClassName} select${ClassName}ById(${pkColumn.javaType} ${pkColumn.javaField})
+    public ${className} select${className}ById(${pk.attrType} ${pk.attrname})
     {
-        return ${className}Mapper.select${ClassName}ById(${pkColumn.javaField});
+        return ${classname}Mapper.select${className}ById(${pk.attrname});
     }
 
     /**
-     * 查询${functionName}列表
+     * 查询${comments}列表
      * 
-     * @param ${className} ${functionName}
-     * @return ${functionName}
+     * @param ${classname} ${comments}
+     * @return ${comments}
      */
     @Override
-    public List<${ClassName}> select${ClassName}List(${ClassName} ${className})
+    public List<${className}> select${CcassName}List(${className} ${classname})
     {
-        return ${className}Mapper.select${ClassName}List(${className});
+        return ${classname}Mapper.select${className}List(${classname});
     }
 
     /**
-     * 新增${functionName}
+     * 新增${comments}
      * 
-     * @param ${className} ${functionName}
+     * @param ${classname} ${comments}
      * @return 结果
      */
     @Override
-    public int insert${ClassName}(${ClassName} ${className})
+    public int insert${className}(${className} ${classname})
     {
 #foreach ($column in $columns)
 #if($column.javaField == 'createTime')
-        ${className}.setCreateTime(DateUtils.getNowDate());
+        ${classname}.setCreateTime(DateUtils.getNowDate());
 #end
 #end
-        return ${className}Mapper.insert${ClassName}(${className});
+        return ${classname}Mapper.insert${classname}(${classname});
     }
 
     /**
-     * 修改${functionName}
+     * 修改${comments}
      * 
-     * @param ${className} ${functionName}
+     * @param ${classname} ${comments}
      * @return 结果
      */
     @Override
-    public int update${ClassName}(${ClassName} ${className})
+    public int update${className}(${className} ${classname})
     {
 #foreach ($column in $columns)
 #if($column.javaField == 'createTime')
-        ${className}.setUpdateTime(DateUtils.getNowDate());
+        ${classname}.setUpdateTime(DateUtils.getNowDate());
 #end
 #end
-        return ${className}Mapper.update${ClassName}(${className});
+        return ${classname}Mapper.update${className}(${classname});
     }
 
     /**
-     * 删除${functionName}对象
+     * 删除${comments}对象
      * 
      * @param ids 需要删除的数据ID
      * @return 结果
      */
     @Override
-    public int delete${ClassName}ByIds(String ids)
+    public int delete${className}ByIds(Long[] ids)
     {
-        return ${className}Mapper.delete${ClassName}ByIds(Convert.toStrArray(ids));
+        return ${classname}Mapper.delete${className}ByIds(Convert.toStrArray(ids));
     }
 
     /**
-     * 删除${functionName}信息
+     * 删除${comments}信息
      * 
-     * @param ${pkColumn.javaField} ${functionName}ID
+     * @param ${pk.attrType} ${comments}ID
      * @return 结果
      */
-    public int delete${ClassName}ById(${pkColumn.javaType} ${pkColumn.javaField})
+    public int delete${className}ById(${pk.attrType} ${pk.attrname})
     {
-        return ${className}Mapper.delete${ClassName}ById(${pkColumn.javaField});
+        return ${classname}Mapper.delete${className}ById(${pk.attrname});
     }
 #if($table.tree)
 
     /**
-     * 查询${functionName}树列表
+     * 查询${comments}树列表
      * 
-     * @return 所有${functionName}信息
+     * @return 所有${comments}信息
      */
     @Override
     public List<Ztree> select${ClassName}Tree()
     {
-        List<${ClassName}> ${className}List = ${className}Mapper.select${ClassName}List(new ${ClassName}());
+        List<${className}> ${classname}List = ${classname}Mapper.select${className}List(new ${className}());
         List<Ztree> ztrees = new ArrayList<Ztree>();
-        for (${ClassName} ${className} : ${className}List)
+        for (${className} ${classname} : ${classname}List)
         {
             Ztree ztree = new Ztree();
 #set($TreeCode=$treeCode.substring(0,1).toUpperCase() + ${treeCode.substring(1)})
 #set($TreeParentCode=$treeParentCode.substring(0,1).toUpperCase() + ${treeParentCode.substring(1)})
 #set($TreeName=$treeName.substring(0,1).toUpperCase() + ${treeName.substring(1)})
-            ztree.setId(${className}.get${TreeCode}());
-            ztree.setpId(${className}.get${TreeParentCode}());
-            ztree.setName(${className}.get${TreeName}());
-            ztree.setTitle(${className}.get${TreeName}());
+            ztree.setId(${classname}.get${TreeCode}());
+            ztree.setpId(${classname}.get${TreeParentCode}());
+            ztree.setName(${classname}.get${TreeName}());
+            ztree.setTitle(${classname}.get${TreeName}());
             ztrees.add(ztree);
         }
         return ztrees;

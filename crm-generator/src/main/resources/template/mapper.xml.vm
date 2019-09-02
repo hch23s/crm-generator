@@ -2,45 +2,45 @@
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="${packageName}.mapper.${ClassName}Mapper">
+<mapper namespace="${basePackage}.mapper.${className}Mapper">
     
-    <resultMap type="${ClassName}" id="${ClassName}Result">
+    <resultMap type="${className}" id="${className}Result">
 #foreach ($column in $columns)
-        <result property="${column.javaField}"    column="${column.columnName}"    />
+        <result property="${column.attrname}"    column="${column.columnName}"    />
 #end
 #if($table.tree)
         <result property="parentName" column="parent_name" />
 #end
     </resultMap>
 
-    <sql id="select${ClassName}Vo">
+    <sql id="select${className}Vo">
         select#foreach($column in $columns) $column.columnName#if($velocityCount != $columns.size()),#end#end from ${tableName}
     </sql>
 
-    <select id="select${ClassName}List" parameterType="${ClassName}" resultMap="${ClassName}Result">
-        <include refid="select${ClassName}Vo"/>
+    <select id="select${className}List" parameterType="${className}" resultMap="${className}Result">
+        <include refid="select${className}Vo"/>
         <where>  
 #foreach($column in $columns)
 #set($queryType=$column.queryType)
-#set($javaField=$column.javaField)
-#set($javaType=$column.javaType)
+#set($attrname=$column.attrname)
+#set($attrType=$column.attrType)
 #set($columnName=$column.columnName)
-#set($AttrName=$column.javaField.substring(0,1).toUpperCase() + ${column.javaField.substring(1)})
+#set($AttrName=$column.attrname.substring(0,1).toUpperCase() + ${column.attrname.substring(1)})
 #if($column.query)
 #if($column.queryType == "EQ")
-            <if test="$javaField != null #if($javaType == 'String' ) and $javaField.trim() != ''#end"> and $columnName = #{$javaField}</if>
+            <if test="$attrname != null #if($attrType == 'varchar' ) and $attrname.trim() != ''#end"> and $columnName = #{$attrname}</if>
 #elseif($queryType == "NE")
-            <if test="$javaField != null #if($javaType == 'String' ) and $javaField.trim() != ''#end"> and $columnName != #{$javaField}</if>
+            <if test="$attrname != null #if($attrType == 'varchar' ) and $attrname.trim() != ''#end"> and $columnName != #{$attrname}</if>
 #elseif($queryType == "GT")
-            <if test="$javaField != null #if($javaType == 'String' ) and $javaField.trim() != ''#end"> and $columnName &gt; #{$javaField}</if>
+            <if test="$attrname != null #if($attrType == 'varchar' ) and $attrname.trim() != ''#end"> and $columnName &gt; #{$attrname}</if>
 #elseif($queryType == "GTE")
-            <if test="$javaField != null #if($javaType == 'String' ) and $javaField.trim() != ''#end"> and $columnName &gt;= #{$javaField}</if>
+            <if test="$attrname != null #if($attrType == 'varchar' ) and $attrname.trim() != ''#end"> and $columnName &gt;= #{$attrname}</if>
 #elseif($queryType == "LT")
-            <if test="$javaField != null #if($javaType == 'String' ) and $javaField.trim() != ''#end"> and $columnName &lt; #{$javaField}</if>
+            <if test="$attrname != null #if($attrType == 'varchar' ) and $attrname.trim() != ''#end"> and $columnName &lt; #{$attrname}</if>
 #elseif($queryType == "LTE")
-            <if test="$javaField != null #if($javaType == 'String' ) and $javaField.trim() != ''#end"> and $columnName &lt;= #{$javaField}</if>
+            <if test="$attrname != null #if($attrType == 'varchar' ) and $attrname.trim() != ''#end"> and $columnName &lt;= #{$attrname}</if>
 #elseif($queryType == "LIKE")
-            <if test="$javaField != null #if($javaType == 'String' ) and $javaField.trim() != ''#end"> and $columnName like concat('%', #{$javaField}, '%')</if>
+            <if test="$attrname != null #if($attrType == 'varchar' ) and $attrname.trim() != ''#end"> and $columnName like concat('%', #{$attrname}, '%')</if>
 #elseif($queryType == "BETWEEN")
             <if test="params.begin$AttrName != null and params.begin$AttrName != '' and params.end$AttrName != null and params.end$AttrName != ''"> and $columnName between #{params.begin$AttrName} and #{params.end$AttrName}</if>
 #end
@@ -52,56 +52,56 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 #end
     </select>
     
-    <select id="select${ClassName}ById" parameterType="${pkColumn.javaType}" resultMap="${ClassName}Result">
+    <select id="select${className}ById" parameterType="${pk.attrType}" resultMap="${className}Result">
 #if($table.crud)
-        <include refid="select${ClassName}Vo"/>
-        where ${pkColumn.columnName} = #{${pkColumn.javaField}}
+        <include refid="select${className}Vo"/>
+        where ${pk.columnName} = #{${pk.attrname}}
 #elseif($table.tree)
         select#foreach($column in $columns) t.$column.columnName,#end p.${tree_name} as parent_name
         from ${tableName} t
-        left join ${tableName} p on p.${pkColumn.columnName} = t.${tree_parent_code}
-        where t.${pkColumn.columnName} = #{${pkColumn.javaField}}
+        left join ${tableName} p on p.${pk.columnName} = t.${tree_parent_code}
+        where t.${pk.columnName} = #{${pk.attrname}}
 #end
     </select>
         
-    <insert id="insert${ClassName}" parameterType="${ClassName}"#if($pkColumn.increment) useGeneratedKeys="true" keyProperty="$pkColumn.javaField"#end>
+    <insert id="insert${className}" parameterType="${className}"#if($pk.increment) useGeneratedKeys="true" keyProperty="$pk.attrname"#end>
         insert into ${tableName}
         <trim prefix="(" suffix=")" suffixOverrides=",">
 #foreach($column in $columns)
-#if($column.columnName != $pkColumn.columnName || !$pkColumn.increment)
-            <if test="$column.javaField != null #if($column.javaType == 'String' ) and $column.javaField != ''#end">$column.columnName,</if>
+#if($column.columnName != $pk.columnName || !$pk.increment)
+            <if test="$column.attrname != null #if($column.attrType == 'String' ) and $column.attrname != ''#end">$column.columnName,</if>
 #end
 #end
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
 #foreach($column in $columns)
-#if($column.columnName != $pkColumn.columnName || !$pkColumn.increment)
-            <if test="$column.javaField != null #if($column.javaType == 'String' ) and $column.javaField != ''#end">#{$column.javaField},</if>
+#if($column.columnName != $pk.columnName || !$pk.increment)
+            <if test="$column.attrname != null #if($column.attrType == 'String' ) and $column.attrname != ''#end">#{$column.attrname},</if>
 #end
 #end
          </trim>
     </insert>
 
-    <update id="update${ClassName}" parameterType="${ClassName}">
+    <update id="update${className}" parameterType="${className}">
         update ${tableName}
         <trim prefix="SET" suffixOverrides=",">
 #foreach($column in $columns)
-#if($column.columnName != $pkColumn.columnName)
-            <if test="$column.javaField != null #if($column.javaType == 'String' ) and $column.javaField != ''#end">$column.columnName = #{$column.javaField},</if>
+#if($column.columnName != $pk.columnName)
+            <if test="$column.attrname != null #if($column.attrType == 'String' ) and $column.attrname != ''#end">$column.columnName = #{$column.attrname},</if>
 #end
 #end
         </trim>
-        where ${pkColumn.columnName} = #{${pkColumn.javaField}}
+        where ${pk.columnName} = #{${pk.attrname}}
     </update>
 
-    <delete id="delete${ClassName}ById" parameterType="${pkColumn.javaType}">
-        delete from ${tableName} where ${pkColumn.columnName} = #{${pkColumn.javaField}}
+    <delete id="delete${className}ById" parameterType="${pk.attrname}">
+        delete from ${tableName} where ${pk.attrname} = #{${pk.attrname}}
     </delete>
 
-    <delete id="delete${ClassName}ByIds" parameterType="String">
-        delete from ${tableName} where ${pkColumn.columnName} in 
-        <foreach item="${pkColumn.javaField}" collection="array" open="(" separator="," close=")">
-            #{${pkColumn.javaField}}
+    <delete id="delete${className}ByIds" parameterType="String">
+        delete from ${tableName} where ${pk.attrname} in 
+        <foreach item="${pk.attrname}" collection="array" open="(" separator="," close=")">
+            #{${pk.attrname}}
         </foreach>
     </delete>
     

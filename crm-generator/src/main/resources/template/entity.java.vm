@@ -1,4 +1,4 @@
-package ${packageName}.domain;
+package ${basePackage}.domain;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -13,64 +13,37 @@ import ${import};
 #end
 
 /**
- * ${functionName}对象 ${tableName}
+ * ${comments}
  * 
  * @author ${author}
  * @date ${datetime}
  */
-#if($table.crud)
-#set($Entity="BaseEntity")
-#elseif($table.tree)
-#set($Entity="TreeEntity")
-#end
-public class ${ClassName} extends ${Entity}
-{
-    private static final long serialVersionUID = 1L;
+@TableName("${tableName}")
+public class ${className} extends ${Entity}
+{private static final long serialVersionUID = 1L;
 
 #foreach ($column in $columns)
-#if(!$column.superColumn)
-    /** $column.columnComment */
-#if($column.list)
-#set($parentheseIndex=$column.columnComment.indexOf("（"))
-#if($parentheseIndex != -1)
-#set($comment=$column.columnComment.substring(0, $parentheseIndex))
-#else
-#set($comment=$column.columnComment)
+	/**
+	 * $column.comments
+	 */
+	#if($column.columnName == $pk.columnName)
+@TableId
+	#end
+private $column.attrType $column.attrname;
 #end
-#if($parentheseIndex != -1)
-    @Excel(name = "${comment}", readConverterExp = "$column.readConverterExp()")
-#elseif($column.javaType == 'Date')
-    @Excel(name = "${comment}", width = 30, dateFormat = "yyyy-MM-dd")
-#else
-    @Excel(name = "${comment}")
-#end
-#end
-    private $column.javaType $column.javaField;
 
-#end
-#end
 #foreach ($column in $columns)
-#if(!$column.superColumn)
-#set($AttrName=$column.javaField.substring(0,1).toUpperCase() + ${column.javaField.substring(1)})
-    public void set${AttrName}($column.javaType $column.javaField) 
-    {
-        this.$column.javaField = $column.javaField;
-    }
-
-    public $column.javaType get${AttrName}() 
-    {
-        return $column.javaField;
-    }
+	/**
+	 * 设置：${column.comments}
+	 */
+	public void set${column.attrName}($column.attrType $column.attrname) {
+		this.$column.attrname = $column.attrname;
+	}
+	/**
+	 * 获取：${column.comments}
+	 */
+	public $column.attrType get${column.attrName}() {
+		return $column.attrname;
+	}
 #end
-#end
-
-    @Override
-    public String toString() {
-        return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
-#foreach ($column in $columns)
-#set($AttrName=$column.javaField.substring(0,1).toUpperCase() + ${column.javaField.substring(1)})
-            .append("${column.javaField}", get${AttrName}())
-#end
-            .toString();
-    }
 }

@@ -1,61 +1,61 @@
-package ${packageName}.mapper;
+package ${basePackage}.mapper;
 
-import ${packageName}.domain.${ClassName};
+import ${basePackage}.domain.${className};
 import java.util.List;
 
 /**
- * ${functionName}Mapper接口
+ * ${comments}Mapper接口
  * 
  * @author ${author}
  * @date ${datetime}
  */
-public interface ${ClassName}Mapper 
+public interface ${className}Mapper 
 {
     /**
-     * 查询${functionName}
+     * 查询${comments}
      * 
-     * @param ${pkColumn.javaField} ${functionName}ID
-     * @return ${functionName}
+     * @param ${pk.attrname} ${comments}ID
+     * @return ${comments}
      */
-    public ${ClassName} select${ClassName}ById(${pkColumn.javaType} ${pkColumn.javaField});
+    public ${className} select${className}ById(${pk.attrType} ${pk.attrname});
 
     /**
-     * 查询${functionName}列表
+     * 查询${comments}列表
      * 
-     * @param ${className} ${functionName}
-     * @return ${functionName}集合
+     * @param ${classname} ${comments}
+     * @return ${comments}集合
      */
-    public List<${ClassName}> select${ClassName}List(${ClassName} ${className});
+    public List<${className}> select${className}List(${className} ${classname});
 
     /**
-     * 新增${functionName}
+     * 新增${comments}
      * 
-     * @param ${className} ${functionName}
+     * @param ${classname} ${comments}
      * @return 结果
      */
-    public int insert${ClassName}(${ClassName} ${className});
+    public int insert${className}(${className} ${classname});
 
     /**
-     * 修改${functionName}
+     * 修改${comments}
      * 
-     * @param ${className} ${functionName}
+     * @param ${classname} ${comments}
      * @return 结果
      */
-    public int update${ClassName}(${ClassName} ${className});
+    public int update${className}(${className} ${classname});
 
     /**
-     * 删除${functionName}
+     * 删除${comments}
      * 
-     * @param ${pkColumn.javaField} ${functionName}ID
+     * @param ${pk.attrname} ${comments}ID
      * @return 结果
      */
-    public int delete${ClassName}ById(${pkColumn.javaType} ${pkColumn.javaField});
+    public int delete${className}ById(${pk.attrType} ${pk.attrname});
 
     /**
-     * 批量删除${functionName}
+     * 批量删除${comments}
      * 
-     * @param ${pkColumn.javaField}s 需要删除的数据ID
+     * @param ${pk.attrname}s 需要删除的数据ID
      * @return 结果
      */
-    public int delete${ClassName}ByIds(String[] ${pkColumn.javaField}s);
+    public int delete${className}ByIds(Long[] ${pk.attrname}s);
 }

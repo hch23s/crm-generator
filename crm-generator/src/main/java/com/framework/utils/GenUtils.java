@@ -113,7 +113,7 @@ public class GenUtils {
 		map.put("columns", tableEntity.getColumns());
 		map.put("hasBigDecimal", hasBigDecimal);
 		map.put("mainPath", mainPath);
-		map.put("package", config.getString("package"));
+		map.put("basePackage", config.getString("basePackage"));
 		map.put("moduleName", config.getString("moduleName"));
 		map.put("author", config.getString("author"));
 		map.put("email", config.getString("email"));
