@@ -4,14 +4,14 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.ssy</groupId>
 	<artifactId>crm</artifactId>
-	<version>1.0</version>
+	<version>1.0.0</version>
 	<packaging>pom</packaging>
 
 	<name>crm</name>
 	<description>crm管理系统</description>
 
 	<properties>
-		<ruoyi.version>4.0.0</ruoyi.version>
+		<crm.version>1.0.0</crm.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
@@ -174,39 +174,32 @@
 				<version>${fastjson.version}</version>
 			</dependency>
 
-			<!-- 定时任务 -->
-			<dependency>
-				<groupId>com.ruoyi</groupId>
-				<artifactId>ruoyi-quartz</artifactId>
-				<version>${ruoyi.version}</version>
-			</dependency>
-
 			<!-- 代码生成 -->
 			<dependency>
-				<groupId>com.ruoyi</groupId>
-				<artifactId>ruoyi-generator</artifactId>
-				<version>${ruoyi.version}</version>
+				<groupId>com.ssy</groupId>
+				<artifactId>crm-generator</artifactId>
+				<version>${crm.version}</version>
 			</dependency>
 
 			<!-- 核心模块 -->
 			<dependency>
-				<groupId>com.ruoyi</groupId>
-				<artifactId>ruoyi-framework</artifactId>
-				<version>${ruoyi.version}</version>
+				<groupId>com.ssy</groupId>
+				<artifactId>crm-framework</artifactId>
+				<version>${crm.version}</version>
 			</dependency>
 
 			<!-- 系统模块 -->
 			<dependency>
-				<groupId>com.ruoyi</groupId>
-				<artifactId>ruoyi-system</artifactId>
-				<version>${ruoyi.version}</version>
+				<groupId>com.ssy</groupId>
+				<artifactId>crm-system</artifactId>
+				<version>${crm.version}</version>
 			</dependency>
 
 			<!-- 通用工具 -->
 			<dependency>
-				<groupId>com.ruoyi</groupId>
-				<artifactId>ruoyi-common</artifactId>
-				<version>${ruoyi.version}</version>
+				<groupId>com.ssy</groupId>
+				<artifactId>crm-common</artifactId>
+				<version>${crm.version}</version>
 			</dependency>
 
 		</dependencies>
@@ -257,5 +250,6 @@
 		<module>crm-common</module>
 		<module>crm-framework</module>
 		<module>crm-generator</module>
+		<module>crm-system</module>
 	</modules>
 </project>
