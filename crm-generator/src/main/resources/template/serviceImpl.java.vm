@@ -3,20 +3,20 @@ package ${basePackage}.service.impl;
 import java.util.List;
 #if($table.tree)
 import java.util.ArrayList;
-import com.ruoyi.common.core.domain.Ztree;
+import com.common.core.domain.Ztree;
 #end
 #foreach ($column in $columns)
 #if($column.javaField == 'createTime' || $column.javaField == 'updateTime')
-import com.ruoyi.common.utils.DateUtils;
+import com.common.utils.DateUtils;
 #break
 #end
 #end
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ${basePackage}.mapper.${className}Mapper;
-import ${basePackage}.domain.${className};
+import ${basePackage}.entity.${className};
 import ${basePackage}.service.I${className}Service;
-import com.ruoyi.common.core.text.Convert;
+import com.common.core.text.Convert;
 
 /**
  * ${comments}Service业务层处理

@@ -1,12 +1,13 @@
-package ${basePackage}.domain;
+package ${basePackage}.entity;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
-import com.ruoyi.common.annotation.Excel;
+import com.common.annotation.Excel;
+import com.common.core.domain.BaseEntity;
 #if($table.crud)
-import com.ruoyi.common.core.domain.BaseEntity;
+import com.common.core.domain.BaseEntity;
 #elseif($table.tree)
-import com.ruoyi.common.core.domain.TreeEntity;
+import com.common.core.domain.TreeEntity;
 #end
 #foreach ($import in $importList)
 import ${import};
@@ -18,8 +19,7 @@ import ${import};
  * @author ${author}
  * @date ${datetime}
  */
-@TableName("${tableName}")
-public class ${className} extends ${Entity}
+public class ${className} extends BaseEntity
 {private static final long serialVersionUID = 1L;
 
 #foreach ($column in $columns)
@@ -27,7 +27,6 @@ public class ${className} extends ${Entity}
 	 * $column.comments
 	 */
 	#if($column.columnName == $pk.columnName)
-@TableId
 	#end
 private $column.attrType $column.attrname;
 #end

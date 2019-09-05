@@ -1,6 +1,6 @@
 package ${basePackage}.mapper;
 
-import ${basePackage}.domain.${className};
+import ${basePackage}.entity.${className};
 import java.util.List;
 
 /**

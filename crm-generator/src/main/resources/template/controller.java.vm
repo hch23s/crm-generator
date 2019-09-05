@@ -1,4 +1,4 @@
-package ${basePackage}.web.controller.${moduleName};
+package ${basePackage}.web.controller;
 
 import java.util.List;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -10,18 +10,18 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import com.ruoyi.common.annotation.Log;
-import com.ruoyi.common.enums.BusinessType;
-import ${basePackage}.domain.${className};
+import com.common.annotation.Log;
+import com.common.enums.BusinessType;
+import ${basePackage}.entity.${className};
 import ${basePackage}.service.I${className}Service;
-import com.ruoyi.common.core.controller.BaseController;
-import com.ruoyi.common.core.domain.AjaxResult;
-import com.ruoyi.common.utils.poi.ExcelUtil;
+import com.common.core.controller.BaseController;
+import com.common.core.domain.AjaxResult;
+import com.common.utils.poi.ExcelUtil;
 #if($table.crud)
-import com.ruoyi.common.core.page.TableDataInfo;
+import com.common.core.page.TableDataInfo;
 #elseif($table.tree)
-import com.ruoyi.common.utils.StringUtils;
-import com.ruoyi.common.core.domain.Ztree;
+import com.common.utils.StringUtils;
+import com.common.core.domain.Ztree;
 #end
 
 /**

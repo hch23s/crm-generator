@@ -1,9 +1,9 @@
 package ${basePackage}.service;
 
-import ${basePackage}.domain.${className};
+import ${basePackage}.entity.${className};
 import java.util.List;
 #if($table.tree)
-import com.ruoyi.common.core.domain.Ztree;
+import com.common.core.domain.Ztree;
 #end
 
 /**
