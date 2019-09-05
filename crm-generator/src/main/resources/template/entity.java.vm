@@ -23,24 +23,18 @@ public class ${className} extends BaseEntity
 {private static final long serialVersionUID = 1L;
 
 #foreach ($column in $columns)
-	/**
-	 * $column.comments
-	 */
+	/** $column.comments*/
 	#if($column.columnName == $pk.columnName)
 	#end
 private $column.attrType $column.attrname;
 #end
 
 #foreach ($column in $columns)
-	/**
-	 * 设置：${column.comments}
-	 */
+	/** 设置：${column.comments}*/
 	public void set${column.attrName}($column.attrType $column.attrname) {
 		this.$column.attrname = $column.attrname;
 	}
-	/**
-	 * 获取：${column.comments}
-	 */
+	/** 获取：${column.comments}*/
 	public $column.attrType get${column.attrName}() {
 		return $column.attrname;
 	}

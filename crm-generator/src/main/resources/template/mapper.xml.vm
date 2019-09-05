@@ -4,7 +4,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="${basePackage}.mapper.${className}Mapper">
     
-    <resultMap type="${className}" id="${className}Result">
+    <resultMap type="${basePackage}.entity.${className}" id="${className}Result">
 #foreach ($column in $columns)
         <result property="${column.attrname}"    column="${column.columnName}"    />
 #end
@@ -17,7 +17,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         select#foreach($column in $columns) $column.columnName#if($velocityCount != $columns.size()),#end#end from ${tableName}
     </sql>
 
-    <select id="select${className}List" parameterType="${className}" resultMap="${className}Result">
+    <select id="select${className}List" parameterType="${basePackage}.entity.${className}" resultMap="${className}Result">
         <include refid="select${className}Vo"/>
         <where>  
 #foreach($column in $columns)
@@ -64,7 +64,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 #end
     </select>
         
-    <insert id="insert${className}" parameterType="${className}"#if($pk.increment) useGeneratedKeys="true" keyProperty="$pk.attrname"#end>
+    <insert id="insert${className}" parameterType="${basePackage}.entity.${className}"#if($pk.increment) useGeneratedKeys="true" keyProperty="$pk.attrname"#end>
         insert into ${tableName}
         <trim prefix="(" suffix=")" suffixOverrides=",">
 #foreach($column in $columns)
@@ -82,7 +82,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
          </trim>
     </insert>
 
-    <update id="update${className}" parameterType="${className}">
+    <update id="update${className}" parameterType="${basePackage}.entity.${className}">
         update ${tableName}
         <trim prefix="SET" suffixOverrides=",">
 #foreach($column in $columns)
@@ -94,7 +94,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         where ${pk.columnName} = #{${pk.attrname}}
     </update>
 
-    <delete id="delete${className}ById" parameterType="${pk.attrname}">
+    <delete id="delete${className}ById" >
         delete from ${tableName} where ${pk.attrname} = #{${pk.attrname}}
     </delete>
 

@@ -2,6 +2,7 @@ package ${basePackage}.mapper;
 
 import ${basePackage}.entity.${className};
 import java.util.List;
+import org.apache.ibatis.annotations.Mapper;
 
 /**
  * ${comments}Mapper接口
@@ -9,8 +10,8 @@ import java.util.List;
  * @author ${author}
  * @date ${datetime}
  */
-public interface ${className}Mapper 
-{
+ @Mapper
+public interface ${className}Mapper {
     /**
      * 查询${comments}
      * 

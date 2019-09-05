@@ -49,7 +49,7 @@ public class ${className}ServiceImpl implements I${className}Service
      * @return ${comments}
      */
     @Override
-    public List<${className}> select${CcassName}List(${className} ${classname})
+    public List<${className}> select${className}List(${className} ${classname})
     {
         return ${classname}Mapper.select${className}List(${classname});
     }
@@ -68,7 +68,7 @@ public class ${className}ServiceImpl implements I${className}Service
         ${classname}.setCreateTime(DateUtils.getNowDate());
 #end
 #end
-        return ${classname}Mapper.insert${classname}(${classname});
+        return ${classname}Mapper.insert${className}(${classname});
     }
 
     /**
@@ -97,7 +97,7 @@ public class ${className}ServiceImpl implements I${className}Service
     @Override
     public int delete${className}ByIds(Long[] ids)
     {
-        return ${classname}Mapper.delete${className}ByIds(Convert.toStrArray(ids));
+        return ${classname}Mapper.delete${className}ByIds(ids);
     }
 
     /**
