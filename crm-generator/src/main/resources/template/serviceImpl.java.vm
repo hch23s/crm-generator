@@ -25,8 +25,7 @@ import com.common.core.text.Convert;
  * @date ${datetime}
  */
 @Service
-public class ${className}ServiceImpl implements I${className}Service 
-{
+public class ${className}ServiceImpl implements I${className}Service {
     @Autowired
     private ${className}Mapper ${classname}Mapper;
 
