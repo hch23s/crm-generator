@@ -80,6 +80,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 #end
 #end
          </trim>
+         
     </insert>
 
     <update id="update${className}" parameterType="${basePackage}.entity.${className}">
