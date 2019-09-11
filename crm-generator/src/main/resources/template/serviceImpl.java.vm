@@ -1,22 +1,16 @@
 package ${basePackage}.service.impl;
 
+import java.util.Date;
 import java.util.List;
-#if($table.tree)
-import java.util.ArrayList;
-import com.common.core.domain.Ztree;
-#end
-#foreach ($column in $columns)
-#if($column.javaField == 'createTime' || $column.javaField == 'updateTime')
-import com.common.utils.DateUtils;
-#break
-#end
-#end
+
+import com.common.utils.StringUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import ${basePackage}.mapper.${className}Mapper;
 import ${basePackage}.entity.${className};
 import ${basePackage}.service.I${className}Service;
-import com.common.core.text.Convert;
 
 /**
  * ${comments}Service业务层处理
@@ -26,7 +20,7 @@ import com.common.core.text.Convert;
  */
 @Service
 public class ${className}ServiceImpl implements I${className}Service {
-    @Autowired
+    @Autowired(required = false)
     private ${className}Mapper ${classname}Mapper;
 
     /**
@@ -36,8 +30,7 @@ public class ${className}ServiceImpl implements I${className}Service {
      * @return ${comments}
      */
     @Override
-    public ${className} select${className}ById(${pk.attrType} ${pk.attrname})
-    {
+    public ${className} select${className}ById(${pk.attrType} ${pk.attrname}){
         return ${classname}Mapper.select${className}ById(${pk.attrname});
     }
 
@@ -48,43 +41,30 @@ public class ${className}ServiceImpl implements I${className}Service {
      * @return ${comments}
      */
     @Override
-    public List<${className}> select${className}List(${className} ${classname})
-    {
+    public List<${className}> select${className}List(${className} ${classname}){
         return ${classname}Mapper.select${className}List(${classname});
     }
 
     /**
-     * 新增${comments}
+     * 新增/修改${comments}
      * 
      * @param ${classname} ${comments}
      * @return 结果
      */
     @Override
-    public int insert${className}(${className} ${classname})
-    {
-#foreach ($column in $columns)
-#if($column.javaField == 'createTime')
-        ${classname}.setCreateTime(DateUtils.getNowDate());
-#end
-#end
-        return ${classname}Mapper.insert${className}(${classname});
-    }
-
-    /**
-     * 修改${comments}
-     * 
-     * @param ${classname} ${comments}
-     * @return 结果
-     */
-    @Override
-    public int update${className}(${className} ${classname})
-    {
-#foreach ($column in $columns)
-#if($column.javaField == 'createTime')
-        ${classname}.setUpdateTime(DateUtils.getNowDate());
-#end
-#end
-        return ${classname}Mapper.update${className}(${classname});
+    public int insertAndUpdate${className}(${className} ${classname}){
+		int i;
+        //当ID不为空就是修改
+        if(StringUtils.idNotNull(${classname}.getId())){
+            ${classname}.setUpdateBy(1L);
+            ${classname}.setUpdateTime(new Date());
+            i = ${classname}Mapper.update${className}(${classname});
+        }else{
+            ${classname}.setCreateBy(1L);
+            ${classname}.setCreateTime(new Date());
+            i = ${classname}Mapper.insert${className}(${classname});
+        }
+        return i;
     }
 
     /**
@@ -94,46 +74,9 @@ public class ${className}ServiceImpl implements I${className}Service {
      * @return 结果
      */
     @Override
-    public int delete${className}ByIds(Long[] ids)
-    {
-        return ${classname}Mapper.delete${className}ByIds(ids);
+    public int delete${className}ByIds(Long[] ids){
+        
+        return ids.length == 1?${classname}Mapper.delete${className}ById(ids[0]):
+        ${classname}Mapper.delete${className}ByIds(ids);
     }
-
-    /**
-     * 删除${comments}信息
-     * 
-     * @param ${pk.attrType} ${comments}ID
-     * @return 结果
-     */
-    public int delete${className}ById(${pk.attrType} ${pk.attrname})
-    {
-        return ${classname}Mapper.delete${className}ById(${pk.attrname});
-    }
-#if($table.tree)
-
-    /**
-     * 查询${comments}树列表
-     * 
-     * @return 所有${comments}信息
-     */
-    @Override
-    public List<Ztree> select${ClassName}Tree()
-    {
-        List<${className}> ${classname}List = ${classname}Mapper.select${className}List(new ${className}());
-        List<Ztree> ztrees = new ArrayList<Ztree>();
-        for (${className} ${classname} : ${classname}List)
-        {
-            Ztree ztree = new Ztree();
-#set($TreeCode=$treeCode.substring(0,1).toUpperCase() + ${treeCode.substring(1)})
-#set($TreeParentCode=$treeParentCode.substring(0,1).toUpperCase() + ${treeParentCode.substring(1)})
-#set($TreeName=$treeName.substring(0,1).toUpperCase() + ${treeName.substring(1)})
-            ztree.setId(${classname}.get${TreeCode}());
-            ztree.setpId(${classname}.get${TreeParentCode}());
-            ztree.setName(${classname}.get${TreeName}());
-            ztree.setTitle(${classname}.get${TreeName}());
-            ztrees.add(ztree);
-        }
-        return ztrees;
-    }
-#end
 }

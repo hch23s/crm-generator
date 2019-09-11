@@ -2,9 +2,6 @@ package ${basePackage}.service;
 
 import ${basePackage}.entity.${className};
 import java.util.List;
-#if($table.tree)
-import com.common.core.domain.Ztree;
-#end
 
 /**
  * ${comments}Service接口
@@ -30,20 +27,12 @@ public interface I${className}Service {
     public List<${className}> select${className}List(${className} ${classname});
 
     /**
-     * 新增${comments}
+     * 新增/修改${comments}
      * 
      * @param ${classname} ${comments}
      * @return 结果
      */
-    public int insert${className}(${className} ${classname});
-
-    /**
-     * 修改${comments}
-     * 
-     * @param ${classname} ${comments}
-     * @return 结果
-     */
-    public int update${className}(${className} ${classname});
+    public int insertAndUpdate${className}(${className} ${classname});
 
     /**
      * 批量删除${comments}
@@ -52,21 +41,4 @@ public interface I${className}Service {
      * @return 结果
      */
     public int delete${className}ByIds(Long[] ids);
-
-    /**
-     * 删除${comments}信息
-     * 
-     * @param ${pk.attrname} ${comments}ID
-     * @return 结果
-     */
-    public int delete${className}ById(${pk.attrType} ${pk.attrname});
-#if($table.tree)
-
-    /**
-     * 查询${comments}树列表
-     * 
-     * @return 所有${comments}信息
-     */
-    public List<Ztree> select${className}Tree();
-#end
 }
