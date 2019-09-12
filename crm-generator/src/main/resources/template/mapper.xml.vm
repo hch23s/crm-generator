@@ -95,15 +95,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         where ${pk.columnName} = #{${pk.attrname}}
     </update>
 
-    <delete id="delete${className}ById" >
-        delete from ${tableName} where ${pk.attrname} = #{${pk.attrname}}
-    </delete>
-
-    <delete id="delete${className}ByIds" parameterType="String">
-        delete from ${tableName} where ${pk.attrname} in 
-        <foreach item="${pk.attrname}" collection="array" open="(" separator="," close=")">
-            #{${pk.attrname}}
+     <update id="delete${className}ById">
+    	update ${tableName} set status = 0 where id = #{id}
+    </update>
+    
+	<update id="delete${className}ByIds">
+    	update ${tableName} set status = 0 where id in
+    	<foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
         </foreach>
-    </delete>
+    </update>
     
 </mapper>

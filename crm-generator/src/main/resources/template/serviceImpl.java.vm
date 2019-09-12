@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 
 import ${basePackage}.mapper.${className}Mapper;
 import ${basePackage}.entity.${className};
+import ${basePackage}.dto.${className}Dto;
+import ${basePackage}.vo.${className}Vo;
 import ${basePackage}.service.I${className}Service;
 
 /**
@@ -30,7 +32,7 @@ public class ${className}ServiceImpl implements I${className}Service {
      * @return ${comments}
      */
     @Override
-    public ${className} select${className}ById(${pk.attrType} ${pk.attrname}){
+    public ${className}Dto select${className}ById(${pk.attrType} ${pk.attrname}){
         return ${classname}Mapper.select${className}ById(${pk.attrname});
     }
 
@@ -41,7 +43,9 @@ public class ${className}ServiceImpl implements I${className}Service {
      * @return ${comments}
      */
     @Override
-    public List<${className}> select${className}List(${className} ${classname}){
+    public List<${className}Dto> select${className}List(${className}Vo ${classname}Vo){
+        ${className} ${classname} = new ${className}();
+        BeanUtils.copyProperties(${classname}Vo,${classname});
         return ${classname}Mapper.select${className}List(${classname});
     }
 
@@ -52,7 +56,9 @@ public class ${className}ServiceImpl implements I${className}Service {
      * @return 结果
      */
     @Override
-    public int insertAndUpdate${className}(${className} ${classname}){
+    public int insertAndUpdate${className}(${className}Vo ${classname}Vo){
+        ${className} ${classname} = new ${className}();
+        BeanUtils.copyProperties(${classname}Vo,${classname});
 		int i;
         //当ID不为空就是修改
         if(StringUtils.idNotNull(${classname}.getId())){

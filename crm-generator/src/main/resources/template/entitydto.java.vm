@@ -1,0 +1,33 @@
+package ${basePackage}.dto;
+
+import com.common.core.domain.BaseEntity;
+
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
+/**
+ * ${comments}
+ * 
+ * @author ${author}
+ * @date ${datetime}
+ */
+@ApiModel("${comments}表返回")
+public class ${className}Dto extends BaseEntity{
+    private static final long serialVersionUID = 1L;
+
+#foreach ($column in $columns)
+	#if($column.columnName == $pk.columnName)
+	#end
+@ApiModelProperty("$column.comments")
+    private $column.attrType $column.attrname;
+#end
+
+#foreach ($column in $columns)
+	public void set${column.attrName}($column.attrType $column.attrname) {
+		this.$column.attrname = $column.attrname;
+	}
+	public $column.attrType get${column.attrName}() {
+		return $column.attrname;
+	}
+#end
+}

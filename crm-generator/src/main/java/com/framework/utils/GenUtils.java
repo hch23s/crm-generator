@@ -38,8 +38,8 @@ public class GenUtils {
 		templates.add("template/service.java.vm");
 		templates.add("template/serviceImpl.java.vm");
 		templates.add("template/controller.java.vm");
-//		templates.add("template/list.html.vm");
-//		templates.add("template/list.js.vm");
+		templates.add("template/entityvo.java.vm");
+		templates.add("template/entitydto.java.vm");
 //		templates.add("template/menu.sql.vm");
 		return templates;
 	}
@@ -201,13 +201,13 @@ public class GenUtils {
 			return "main" + File.separator + "resources" + File.separator + "mapper" + File.separator + moduleName + File.separator + className + "Mapper.xml";
 		}
 
-//		if (template.contains("list.html.vm")) {
-//			return "main" + File.separator + "resources" + File.separator + "templates" + File.separator + "modules" + File.separator + moduleName + File.separator + className.toLowerCase() + ".html";
-//		}
-//
-//		if (template.contains("list.js.vm")) {
-//			return "main" + File.separator + "resources" + File.separator + "statics" + File.separator + "js" + File.separator + "modules" + File.separator + moduleName + File.separator + className.toLowerCase() + ".js";
-//		}
+		if (template.contains("entityvo.java.vm")) {
+			return packagePath + "vo" + File.separator + className + "Vo.java";
+		}
+
+		if (template.contains("entitydto.java.vm")) {
+			return packagePath + "dto" + File.separator + className + "Dto.java";
+		}
 //
 //		if (template.contains("menu.sql.vm")) {
 //			return className.toLowerCase() + "_menu.sql";
